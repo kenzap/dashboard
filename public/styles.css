@@ -1,0 +1,137 @@
+.loader {
+  display: block;
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  top: 0;
+  text-align: center;
+  vertical-align: middle;
+  height: 100%;
+  opacity: 0.86;
+  background: #fff;
+}
+
+.loader .dots {
+  top: 35%;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  position: relative;
+  margin: 0 auto;
+}
+
+.loader .dots span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: #1941DF;
+  margin: 35px 5px;
+  opacity: 0;
+}
+
+.loader .dots span:nth-child(1) {
+  animation: opacitychange 1s ease-in-out infinite;
+}
+
+.loader .dots span:nth-child(2) {
+  animation: opacitychange 1s ease-in-out 0.33s infinite;
+}
+
+.loader .dots span:nth-child(3) {
+  animation: opacitychange 1s ease-in-out 0.66s infinite;
+}
+
+@keyframes opacitychange {
+  0%, 100% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+}
+footer {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.bi-arrow-left {
+  display: none;
+}
+
+.dash-menu .card.br {
+  border-width: 0;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
+}
+
+.dash-menu .card.anm {
+  transition: all 0.2s ease-in-out;
+}
+
+.dash-menu .card.anm:hover {
+  border-radius: 4px;
+  transform: scale(1.01);
+}
+
+.dash-menu .card .mdi:before {
+  color: #1941DF;
+}
+
+.dash-menu .card svg {
+  width: 32px;
+}
+
+.dash-menu .breadcrumb {
+  padding: 0;
+  border: 0;
+  margin: 16px 0 24px 0;
+}
+
+.dash-menu .link {
+  display: block;
+  text-decoration: none;
+}
+
+.dash-menu .link:after {
+  border: 0;
+  transition: all 0.2s ease-in-out;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  content: "\f142";
+  width: auto;
+  height: auto;
+  vertical-align: middle;
+  line-height: 0.625rem;
+  font-size: 1.25rem;
+  margin-left: 0;
+}
+
+.dash-menu .card .rm-ext {
+  transition: all 0.2s ease-in-out;
+  margin-top: -12px;
+  margin-right: -12px;
+}
+
+.dash-menu .card:hover .rm-ext {
+  display: block !important;
+}
+
+/* .dash-menu .link:hover:after{margin-left: 4px;text-decoration: none;} */
+/* add extensions modal */
+.add-card {
+  transition: all 0.2s ease-in-out;
+  border-radius: 4px;
+  border: 5px #ccc dashed !important;
+  cursor: pointer;
+}
+
+.add-card:hover {
+  background: white;
+  transform: scale(1.01);
+}
+
+.sclick {
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=styles.css.map */
