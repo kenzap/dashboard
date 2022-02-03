@@ -1,3 +1,19 @@
+// initiate header and related scripts
+export const initHeader = (response) => {
+
+  if(response.header) localStorage.setItem('header', response.header);
+
+  let child = document.createElement('div');
+  child.innerHTML = localStorage.getItem('header');
+  child = child.firstChild;
+  document.body.prepend(child);
+
+  // run header scripts
+  let script = Function(document.querySelector("#k-script").innerHTML).call('test');
+  window.i18n.init(response.locale); 
+
+}
+
 // show loader
 export const showLoader = () => {
 

@@ -1,13 +1,7 @@
 // js dependencies
 import { getSiteId, simulateClick, getCookie, parseApiError, onClick, initBreadcrumbs, toast } from "../_/_helpers.js"
-import { showLoader, hideLoader, initFooter } from "../_/_ui.js"
+import { showLoader, hideLoader, initHeader, initFooter } from "../_/_ui.js"
 import { homeContent } from "../_/_cnt_home.js"
-import { i18n } from "../_/_i18n.js"
- 
-// references
-const __ = i18n.__;
-
-const CDN = 'https://kenzap-sites.oss-ap-southeast-1.aliyuncs.com';
 
 /*
 <div class="col-lg-4 grid-margin stretch-card mb-4">
@@ -57,6 +51,7 @@ const _this = {
                 'Accept': 'application/json',
                 'Content-Type': 'text/plain',
                 'Authorization': 'Bearer ' + getCookie('kenzap_api_key'),
+                'Kenzap-Header': localStorage.hasOwnProperty('header'),
                 'Kenzap-Token': getCookie('kenzap_token'),
                 'Kenzap-Sid': getSiteId(),
             },
@@ -85,17 +80,14 @@ const _this = {
 
             if(response.success){
 
-                // initiate locale
-                i18n.init(response.locale);
+                // init header
+                initHeader(response);
 
                 // get core html content 
                 _this.loadHomeStructure();  
 
                 // render table
                 _this.renderPage(response);
-
-                // init header
-                _this.initHeader(response);
 
                 // bind content listeners
                 _this.initListeners();
@@ -180,16 +172,6 @@ const _this = {
                 { text: __('Dashboard') },
             ]
         );
-    },
-    initHeader: (response) => {
-
-        onClick('.nav-back', (e) => {
-
-            e.preventDefault();
-            console.log('.nav-back');
-            let link = document.querySelector('.bc ol li:nth-last-child(2)').querySelector('a');
-            simulateClick(link);
-        });
     },
     initListeners: (type = 'partial') => {
 

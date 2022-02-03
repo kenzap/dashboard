@@ -1,13 +1,7 @@
 // js dependencies
 import { getSiteId, timeConverterAgo, simulateClick, getCookie, parseApiError, onClick, onChange, initBreadcrumbs, toast, link } from "../_/_helpers.js"
-import { showLoader, hideLoader, initFooter } from "../_/_ui.js"
+import { showLoader, hideLoader, initHeader, initFooter } from "../_/_ui.js"
 import { HTMLContent } from "../_/_cnt_page_edit.js"
-import { i18n } from "../_/_i18n.js"
- 
-// references
-const __ = i18n.__;
-
-const CDN = 'https://kenzap-sites.oss-ap-southeast-1.aliyuncs.com';
 
 // where everything happens
 const _this = {
@@ -48,6 +42,7 @@ const _this = {
                 'Accept': 'application/json',
                 'Content-type': 'application/x-www-form-urlencoded',
                 'Authorization': 'Bearer ' + getCookie('kenzap_api_key'),
+                'Kenzap-Header': localStorage.hasOwnProperty('header'),
                 'Kenzap-Token': getCookie('kenzap_token'),
                 'Kenzap-Sid': getSiteId(), 
             }, 
@@ -113,6 +108,9 @@ const _this = {
             
             if(response.success){
 
+                // init header
+                initHeader(response);
+                
                 _this.startRender();
 
             }else{
@@ -129,9 +127,6 @@ const _this = {
         // only start when both apis have loaded
         if(_this.state.data == null || _this.state.dataAPI == null) return;
 
-        // initiate locale
-        i18n.init(_this.state.data.locale);
-
         // load dependencies
         if(_this.state.firstLoad){
 
@@ -146,9 +141,6 @@ const _this = {
 
         // render table
         setTimeout(function(){ _this.renderPage(); },2000);
-
-        // init header
-        _this.initHeader(_this.state.data);
 
         // bind content listeners
         _this.initListeners();

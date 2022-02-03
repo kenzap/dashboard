@@ -2,7 +2,7 @@
 
 General dashboard for Kenzap Cloud management.
 
-<!-- ![E-commerce](https://cdn.kenzap.com/github/img/extension-ecommerce.png) -->
+![E-commerce](https://cdn.kenzap.com/github/img/dashboard-1.png)
 
 <b>With solution one can:</b>
 
