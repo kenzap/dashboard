@@ -1,17 +1,23 @@
 // initiate header and related scripts
 export const initHeader = (response) => {
 
+  // cache header from backend
   if(response.header) localStorage.setItem('header', response.header);
 
-  let child = document.createElement('div');
-  child.innerHTML = localStorage.getItem('header');
-  child = child.firstChild;
-  document.body.prepend(child);
+  // load header to html if not present
+  if(!document.querySelector("#k-script")){
 
-  // run header scripts
-  let script = Function(document.querySelector("#k-script").innerHTML).call('test');
-  window.i18n.init(response.locale); 
+      let child = document.createElement('div');
+      child.innerHTML = localStorage.getItem('header');
+      child = child.firstChild;
+      document.body.prepend(child);
 
+      // run header scripts
+      let script = Function(document.querySelector("#k-script").innerHTML).call('test');
+  }
+
+  // load locales if present
+  if(response.locale) window.i18n.init(response.locale); 
 }
 
 // show loader

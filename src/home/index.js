@@ -3,34 +3,12 @@ import { getSiteId, simulateClick, getCookie, parseApiError, onClick, initBreadc
 import { showLoader, hideLoader, initHeader, initFooter } from "../_/_ui.js"
 import { homeContent } from "../_/_cnt_home.js"
 
-/*
-<div class="col-lg-4 grid-margin stretch-card mb-4">
-    <div class="card border-white shadow-sm p-sm-2 anm br" data-ext="pages">
-        <div class="card-body">
-            <div class="d-flex flex-row">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="32" fill="currentColor" class="bi bi-pencil-square me-3 mr-md-0 mr-lg-4 text-primary" viewBox="0 0 16 16" style="min-width: 32px;">
-                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
-                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
-            </svg>
-            <div class="mr-4 mr-md-0 mr-lg-4 text-left text-lg-left">
-                <h5 class="card-title mb-0">Pages <button type="button" class="btn-close float-end fs-6" style="margin-top:-12px;margin-right:-12px"></button></h5>
-                <p class="card-description mt-1 mb-0">Update content of your website. Create new pages or update existing layouts.</p>
-                <div class="link-group">
-                <a class="mt-2 text-md-tight" href="/pages/?sid=1000452" data-ext="pages">Edit</a>
-                </div>
-            </div>
-            </div>                  
-        </div>
-    </div>
-</div>
-*/
-
-
 // where everything happens
 const _this = {
 
     state: {
         firstLoad: true,
+        extLoad: false,
         ajaxQueue: 0,
         modalCont: null,
         ext_ids: null
@@ -89,6 +67,9 @@ const _this = {
                 // render table
                 _this.renderPage(response);
 
+                // check launcher  
+                _this.checkLauncher();
+
                 // bind content listeners
                 _this.initListeners();
             
@@ -115,10 +96,12 @@ const _this = {
         _this.state.ext_ids = response.dashboard.ext_ids;
         if(response.dashboard.ext_ids) response.dashboard.ext_ids.forEach(el => {
             
-            console.log(el);
-            // console.log(response.dashboard.extensions[el].links);
+            // console.log("init card for ext: " + el);
+            // console.log(response.dashboard.extensions[el]);
 
             if(response.dashboard.extensions[el].links) response.dashboard.extensions[el].links.forEach(el_card => {
+
+                // console.log(el_card);
 
                 // render links
                 let links = '';
@@ -174,8 +157,6 @@ const _this = {
         );
     },
     initListeners: (type = 'partial') => {
-
-        console.log('initListeners ');
 
         // block click listener
         onClick('.link-group a', _this.listeners.blockClick);
@@ -234,27 +215,25 @@ const _this = {
             .then(response => response.json())
             .then(response => {
 
-                // hide UI loader
-                // hideLoader();
-
                 if(response.success){
                    
-                    let html = '';
+                    let html = '', key = 0;
                     html += '<div class="row">';
-                    for (let key in response.res) {
+                    for (let row of response.res) {
 
                         // check if extension already added
                         html += '<div class="col-md-6" style="margin:16px 0;">';
-                        html += '<h4>'+response.res[key]['extra']['title'];
+                        html += '<h4>'+row['extra']['title'];
                         html += '<div class="br-wrapper br-theme-css-stars"><select id="profile-rating" name="rating" autocomplete="off" style="display: none;"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select><div class="br-widget"><a href="#" data-rating-value="1" data-rating-text="1" class="br-selected"></a><a href="#" data-rating-value="2" data-rating-text="2" class="br-selected"></a><a href="#" data-rating-value="3" data-rating-text="3" class="br-selected"></a><a href="#" data-rating-value="4" data-rating-text="4" class="br-selected"></a><a href="#" data-rating-value="5" data-rating-text="5" class="br-selected br-current"></a></div></div>';
                         html += '</h4>';
-                        html += '<img alt="'+response.res[key]['extra']['title']+'" style="max-width:100%;" src="'+CDN2+'/preview/'+response.res[key]['id']+'-600.jpeg?'+response.res[key]['extra']['updated']+'" />';
-                        if(_this.state.ext_ids[key]){
-                            html += '<span class="csection" data-id="'+response.res[key]['id']+'" data-index="'+key+'" >' + __('Already added') + '</a>';
+                        html += '<img alt="'+row['extra']['title']+'" style="max-width:100%;" src="'+CDN2+'/preview/'+row['id']+'-600.jpeg?'+row['extra']['updated']+'" />';
+                        if(_this.state.ext_ids.includes(row['id'])){
+                            html += '<span class="csection" data-id="'+row['id']+'" data-index="'+key+'" >' + __('Already added') + '</a>';
                         }else{
-                            html += '<a class="sclick csection" data-id="'+response.res[key]['id']+'" data-index="'+key+'" >' + __('Choose this extensions') + '</a>';
+                            html += '<a class="sclick csection" data-id="'+row['id']+'" data-index="'+key+'" >' + __('Choose this extensions') + '</a>';
                         }
                         html += '</div>';
+                        key++;
                     }
                     html += '</div>';
 
@@ -317,12 +296,9 @@ const _this = {
 
             _this.state.modalCont.hide();
             _this.launcher(e.currentTarget.dataset.id);
-            console.log(e.currentTarget.dataset.id);
-
         },
         modalSuccessBtn: (e) => {
             
-            console.log('calling modalSuccessBtnFunc');
             _this.listeners.modalSuccessBtnFunc(e);
         },
         modalSuccessBtnFunc: null
@@ -361,7 +337,19 @@ const _this = {
         .catch(error => {
             console.error('Error:', error);
         });
+    },
+    checkLauncher: () => {
 
+        if(_this.state.extLoad) return;
+
+        // init params
+        let params = new URLSearchParams(window.location.search);
+        if(params.get("launcher")){
+         
+            let exts = params.get("launcher").split(',');
+            exts.forEach(id => _this.state.ext_ids.includes(id) ? '' : _this.launcher(id));
+            _this.state.extLoad = true;
+        }
     },
     loadHomeStructure: () => {
 
