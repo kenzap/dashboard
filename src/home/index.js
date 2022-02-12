@@ -227,9 +227,9 @@ const _this = {
                         html += '</h4>';
                         html += '<img alt="'+row['extra']['title']+'" style="max-width:100%;" src="'+CDN2+'/preview/'+row['id']+'-600.jpeg?'+row['extra']['updated']+'" />';
                         if(_this.state.ext_ids.includes(row['id'])){
-                            html += '<span class="csection" data-id="'+row['id']+'" data-index="'+key+'" >' + __('Already added') + '</a>';
+                            html += '<span class="csection" data-id="'+row['extra']['slug']+'" data-index="'+key+'" >' + __('Already added') + '</a>';
                         }else{
-                            html += '<a class="sclick csection" data-id="'+row['id']+'" data-index="'+key+'" >' + __('Choose this extensions') + '</a>';
+                            html += '<a class="sclick csection" data-id="'+row['extra']['slug']+'" data-index="'+key+'" >' + __('Choose this extensions') + '</a>';
                         }
                         html += '</div>';
                         key++;
