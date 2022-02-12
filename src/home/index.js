@@ -1,6 +1,5 @@
-// js dependencies
-import { getSiteId, simulateClick, getCookie, parseApiError, onClick, initBreadcrumbs, toast } from "../_/_helpers.js"
-import { showLoader, hideLoader, initHeader, initFooter } from "../_/_ui.js"
+// dependencies
+import { showLoader, hideLoader, initHeader, initFooter, initBreadcrumbs, parseApiError, getCookie, onClick, getSiteId, toast } from '@kenzap/k-cloud';
 import { homeContent } from "../_/_cnt_home.js"
 
 // where everything happens
@@ -96,10 +95,10 @@ const _this = {
         _this.state.ext_ids = response.dashboard.ext_ids;
         if(response.dashboard.ext_ids) response.dashboard.ext_ids.forEach(el => {
             
-            // console.log("init card for ext: " + el);
+            console.log("init card for ext: " + el);
             // console.log(response.dashboard.extensions[el]);
 
-            if(response.dashboard.extensions[el].links) response.dashboard.extensions[el].links.forEach(el_card => {
+            if(response.dashboard.extensions[el]) if(response.dashboard.extensions[el].links) response.dashboard.extensions[el].links.forEach(el_card => {
 
                 // console.log(el_card);
 
