@@ -10,7 +10,8 @@ const _this = {
         extLoad: false,
         ajaxQueue: 0,
         modalCont: null,
-        ext_ids: null
+        ext_ids: null,
+        
     },
     init: () => {
         
@@ -34,8 +35,9 @@ const _this = {
                     },
                     locale: {
                         type:       'locale',
-                        id:         getCookie('lang')
-                    }, 
+                        source:      ['extension'],
+                        key:         'dashboard',
+                    },
                     dashboard: {
                         type:       'dashboard',
                     }

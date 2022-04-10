@@ -9,7 +9,7 @@ const _this = {
         firstLoad: true,
         ajaxQueue: 0,
         dataAPI: null,
-        data: null
+        data: null,
     },
     init: () => {
         
@@ -29,7 +29,6 @@ const _this = {
             headers: {
                 'Accept': 'application/json',
                 'Content-type': 'application/x-www-form-urlencoded',
-                // 'Authorization': 'Bearer ' + getCookie('kenzap_api_key'),
             },
             body: params
         })
@@ -70,7 +69,8 @@ const _this = {
                     },
                     locale: {
                         type:       'locale',
-                        id:         getCookie('lang')
+                        source:      ['extension'],
+                        key:         'dashboard',
                     }
                 }
             })

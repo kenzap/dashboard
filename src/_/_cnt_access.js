@@ -15,7 +15,6 @@ export const HTMLContent = (__) => {
                 <li><a class="dropdown-item btn-rename-space" href="#">${ __('Space name') }</a></li>
                 <li><a class="dropdown-item text-danger btn-remove-space" href="#">${ __('Remove space') }</a></li></ul>
             </div>
-              
             <button class="btn btn-primary btn-add d-none" type="button">${ __('Add user') }</button>
         </div> 
         
