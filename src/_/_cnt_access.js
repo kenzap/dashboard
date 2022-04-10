@@ -4,11 +4,23 @@ export const HTMLContent = (__) => {
     <div class="container">
         <div class="d-flex justify-content-between bd-highlight mb-3">
             <nav class="bc" aria-label="breadcrumb"></nav>
-            <button class="btn btn-primary btn-add" type="button">${ __('Add user') }</button>
+            <div class="ms-2 dropdown">
+              <button class="btn btn btn-outline-primary dropdown-toggle  h-space" type="button" id="accessOptions" data-bs-toggle="dropdown" aria-expanded="false" >${ __('Options') }</button>
+              <ul class="dropdown-menu accessOptionsList" aria-labelledby="accessOptions">
+                <li><a class="dropdown-item btn-add-user" href="#">${ __('Add user') }</a></li>
+                <li><a class="dropdown-item btn-add-key" href="#">${ __('Add API Key') }</a></li>
+                <li><a class="dropdown-item btn-add-space" href="#">${ __('New space') }</a></li>
+   
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item btn-rename-space" href="#">${ __('Space name') }</a></li>
+                <li><a class="dropdown-item text-danger btn-remove-space" href="#">${ __('Remove space') }</a></li></ul>
+            </div>
+              
+            <button class="btn btn-primary btn-add d-none" type="button">${ __('Add user') }</button>
         </div> 
         
         <div class="row">
-            <div class="col-md-8 grid-margin grid-margin-lg-0 grid-margin-md-0 stretch-card">
+            <div class="col-md-7 grid-margin grid-margin-lg-0 grid-margin-md-0 stretch-card">
               <div class="card border-white shadow-sm br">
                 <div class="card-body">
                   <h4 class="card-title mb-4">${ __('Users') }</h4>
@@ -30,41 +42,23 @@ export const HTMLContent = (__) => {
                 </div>
               </div>
             </div>
-            <div class="col-md-4 grid-margin grid-margin-lg-0 grid-margin-md-0 stretch-card">
+            <div class="col-md-5 grid-margin grid-margin-lg-0 grid-margin-md-0 stretch-card">
               <div class="card border-white shadow-sm br">
                 <div class="card-body">
                   <h4 class="card-title mb-4">${ __('API Keys') }</h4>
+                  <div class="table-responsive table-nav">
+                    <table class="table table-hover table-borderless align-middle table-striped table-p-list">
+                      <thead>
+                        <tr>
+                          <th>${ __('Key') }</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody class="list-keys">
 
-                  <div class="form-group mw" >
-                    <label class="form-label" for="p-sku">${ __('API Public') }<span class="renew"></span></label>
-                    <div class="input-group">
-                      <input id="api-public" type="text" style="width:100%;" class="form-control inp" placeholder="" autocomplete="off" maxlength="254">
-                      <p class="form-text">
-                      ${ __('Grants API data read permissions to any user.') }
-                      </p>
-                    </div>
+                      </tbody>
+                    </table>
                   </div>
-
-                  <div class="form-group mw" >
-                    <label class="form-label" for="p-sku">${ __('API Private') }<span class="renew"></span></label>
-                    <div class="input-group">
-                      <input id="api-private" type="text" style="width:100%;" class="form-control inp" placeholder="" autocomplete="off" maxlength="254">
-                      <p class="form-text">
-                      ${ __('Grants API data write permissions to authenticated users.') }
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="form-group mw" >
-                    <label class="form-label" for="p-sku">${ __('API Restricted') } <span class="renew"></span></label>
-                    <div class="input-group">
-                      <input id="api-restricted" type="text" style="width:100%;" class="form-control inp" placeholder="" autocomplete="off" maxlength="254">
-                      <p class="form-text">
-                      ${ __('Grants API data write permissions to admin users only.') }
-                      </p>
-                    </div>
-                  </div>
-                  
                 </div>
               </div>
             </div>

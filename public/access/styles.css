@@ -76,10 +76,6 @@ footer {
     display: none !important;
   }
 }
-.table {
-  min-width: 500px;
-}
-
 .name b {
   line-height: 30px;
 }

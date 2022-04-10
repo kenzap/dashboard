@@ -1,5 +1,5 @@
 // dependencies
-import { showLoader, hideLoader, initHeader, initFooter, initBreadcrumbs, parseApiError, getCookie, onClick, getSiteId, toast } from '@kenzap/k-cloud';
+import { headers, showLoader, hideLoader, initHeader, initFooter, initBreadcrumbs, parseApiError, getCookie, onClick, getSiteId, toast } from '@kenzap/k-cloud';
 import { homeContent } from "../_/_cnt_home.js"
 
 // where everything happens
@@ -24,14 +24,7 @@ const _this = {
         // do API query
         fetch('https://api-v1.kenzap.cloud/', {
             method: 'post',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'text/plain',
-                'Authorization': 'Bearer ' + getCookie('kenzap_api_key'),
-                'Kenzap-Header': localStorage.hasOwnProperty('header'),
-                'Kenzap-Token': getCookie('kenzap_token'),
-                'Kenzap-Sid': getSiteId(),
-            },
+            headers: headers,
             body: JSON.stringify({
                 query: {
                     user: {
@@ -189,7 +182,7 @@ const _this = {
 
             let modal = document.querySelector(".modal");
             _this.state.modalCont = new bootstrap.Modal(modal);
-            modal.querySelector(".modal-dialog").style.maxWidth = '700px';
+            modal.querySelector(".modal-dialog").style.maxWidth = '900px';
             let CDN2 = 'https://static.kenzap.com';
             
             modal.querySelector(".modal-title").innerHTML = __('Add extension');
@@ -225,7 +218,7 @@ const _this = {
                         html += '<h4>'+row['extra']['title'];
                         html += '<div class="br-wrapper br-theme-css-stars"><select id="profile-rating" name="rating" autocomplete="off" style="display: none;"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select><div class="br-widget"><a href="#" data-rating-value="1" data-rating-text="1" class="br-selected"></a><a href="#" data-rating-value="2" data-rating-text="2" class="br-selected"></a><a href="#" data-rating-value="3" data-rating-text="3" class="br-selected"></a><a href="#" data-rating-value="4" data-rating-text="4" class="br-selected"></a><a href="#" data-rating-value="5" data-rating-text="5" class="br-selected br-current"></a></div></div>';
                         html += '</h4>';
-                        html += '<img alt="'+row['extra']['title']+'" style="max-width:100%;" src="'+CDN2+'/preview/'+row['id']+'-600.jpeg?'+row['extra']['updated']+'" />';
+                        html += '<img alt="'+row['extra']['title']+'" style="max-width:100%;min-height:200px;" src="'+CDN2+'/preview/'+row['id']+'-600.jpeg?'+row['extra']['updated']+'" />';
                         if(_this.state.ext_ids.includes(row['id'])){
                             html += '<span class="csection" data-id="'+row['extra']['slug']+'" data-index="'+key+'" >' + __('Already added') + '</a>';
                         }else{
