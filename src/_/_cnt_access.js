@@ -19,12 +19,12 @@ export const HTMLContent = (__) => {
         </div> 
         
         <div class="row">
-            <div class="col-md-7 grid-margin grid-margin-lg-0 grid-margin-md-0 stretch-card">
+            <div class="col-lg-7 grid-margin grid-margin-lg-0 grid-margin-md-0 stretch-card">
               <div class="card border-white shadow-sm br">
                 <div class="card-body">
                   <h4 class="card-title mb-4">${ __('Users') }</h4>
                   <div class="table-responsive table-nav">
-                    <table class="table table-hover table-borderless align-middle table-striped table-p-list">
+                    <table class="table table-hover table-borderless align-middle table-striped table-p-list" style="min-width:600px;">
                       <thead>
                         <tr>
                           <th>${ __('ID') }</th>
@@ -41,7 +41,7 @@ export const HTMLContent = (__) => {
                 </div>
               </div>
             </div>
-            <div class="col-md-5 grid-margin grid-margin-lg-0 grid-margin-md-0 stretch-card">
+            <div class="col-lg-5 mt-4 mt-lg-0 grid-margin grid-margin-lg-0 grid-margin-md-0 stretch-card">
               <div class="card border-white shadow-sm br">
                 <div class="card-body">
                   <h4 class="card-title mb-4">${ __('API Keys') }</h4>
