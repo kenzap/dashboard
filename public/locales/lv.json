@@ -165,13 +165,6 @@
     "Remove this page?": "Vai noņemt šo lapu?",
     "Page removed": "Lapa noņemta",
     "Set as home page?": "Vai iestatīt kā sākumlapu?",
-    "New home page is set up": "Ir izveidota jauna mājas lapa",
-    "Invoice info (this information will be not revealed public": "Informācija par rēķinu (šī informācija netiks atklāta",
-    "Bank account holder\\s name": "Bankas konta turētāja vārds",
-    "Remove cloud space # + getSiteId(": "Noņemt mākoņa vietu # + getSiteId(",
-    "Description (optional": "Apraksts (pēc izvēles",
-    "Rename cloud space # + getSiteId(": "Pārdēvēt mākoņa telpu # + getSiteId(",
-    "Copyright © +new Date(": "Autortiesības © +jauns datums(",
-    "Template (Optional": "Veidne (pēc izvēles"
+    "New home page is set up": "Ir izveidota jauna mājas lapa"
   }
 }

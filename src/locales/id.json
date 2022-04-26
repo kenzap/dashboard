@@ -165,13 +165,6 @@
     "Remove this page?": "Hapus halaman ini?",
     "Page removed": "Halaman dihapus",
     "Set as home page?": "Setel sebagai homepage?",
-    "New home page is set up": "Halaman beranda baru telah disiapkan",
-    "Invoice info (this information will be not revealed public": "Info faktur (informasi ini tidak akan diungkapkan kepada publik",
-    "Bank account holder\\s name": "Nama pemegang rekening bank",
-    "Remove cloud space # + getSiteId(": "Hapus ruang cloud # + getSiteId(",
-    "Description (optional": "Deskripsi (opsional",
-    "Rename cloud space # + getSiteId(": "Ganti nama ruang cloud # + getSiteId(",
-    "Copyright © +new Date(": "Hak Cipta © +Tanggal baru(",
-    "Template (Optional": "Templat (Opsional"
+    "New home page is set up": "Halaman beranda baru telah disiapkan"
   }
 }

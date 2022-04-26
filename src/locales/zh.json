@@ -165,13 +165,6 @@
     "Remove this page?": "删除此页面？",
     "Page removed": "页面已移除",
     "Set as home page?": "设为主页？",
-    "New home page is set up": "新主页设置完毕",
-    "Invoice info (this information will be not revealed public": "发票信息（此信息不会公开",
-    "Bank account holder\\s name": "银行账户持有人姓名",
-    "Remove cloud space # + getSiteId(": "移除云空间 # + getSiteId(",
-    "Description (optional": "说明（可选",
-    "Rename cloud space # + getSiteId(": "重命名云空间 # + getSiteId(",
-    "Copyright © +new Date(": "版权所有 © +新日期(",
-    "Template (Optional": "模板（可选"
+    "New home page is set up": "新主页设置完毕"
   }
 }
