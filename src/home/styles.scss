@@ -12,7 +12,7 @@
 .dash-menu .link:after{border: 0; transition: all .2s ease-in-out; font: normal normal normal 24px/1 "Material Design Icons"; content: "\F142"; width: auto;height: auto; vertical-align: middle;line-height: .625rem; font-size: 1.25rem;margin-left: 0;}
 .dash-menu .card .rm-ext{transition: all .2s ease-in-out; margin-top:-12px;margin-right:-12px}
 .dash-menu .card:hover .rm-ext{display: block!important;}
-.dash-menu .card-description{max-height: 80px;}
+.dash-menu .card-description{max-height: 50px;overflow: hidden;}
 /* .dash-menu .link:hover:after{margin-left: 4px;text-decoration: none;} */
 
 /* add extensions modal */

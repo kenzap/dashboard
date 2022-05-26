@@ -69,7 +69,8 @@ footer {
 }
 
 .dash-menu .card-description {
-  max-height: 80px;
+  max-height: 50px;
+  overflow: hidden;
 }
 
 /* .dash-menu .link:hover:after{margin-left: 4px;text-decoration: none;} */
