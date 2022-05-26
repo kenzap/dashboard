@@ -1,8 +1,13 @@
 #contents {
     margin-top: 82px;
 }
-
 footer{ 
     margin-top:32px;
     margin-bottom:32px;
+}
+@media (max-width: 500px){
+
+    .toast{ 
+        width: auto;
+    }
 }

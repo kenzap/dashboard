@@ -7,6 +7,11 @@ footer {
   margin-bottom: 32px;
 }
 
+@media (max-width: 500px) {
+  .toast {
+    width: auto;
+  }
+}
 .sidebar {
   background: #F7F7FA;
   border: 0;

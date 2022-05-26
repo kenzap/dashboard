@@ -7,6 +7,11 @@ footer {
   margin-bottom: 32px;
 }
 
+@media (max-width: 500px) {
+  .toast {
+    width: auto;
+  }
+}
 .iload {
   opacity: 0.3;
   transition: all 2s;
