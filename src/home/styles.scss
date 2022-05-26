@@ -5,17 +5,24 @@
 .dash-menu .card.br{ border-width: 0; border-radius:4px; box-shadow: rgb(0 0 0 / 20%) 0px 1px 2px 0px; }
 .dash-menu .card.anm{ transition: all .2s ease-in-out; }
 .dash-menu .card.anm:hover{ border-radius:4px; transform: scale(1.01); }
-.dash-menu .card .mdi:before{color: #1941DF}
-.dash-menu .card svg{width:32px;}
-.dash-menu .breadcrumb{padding: 0;border: 0;margin:16px 0 24px 0;}
-.dash-menu .link{display: block;text-decoration: none;}
-.dash-menu .link:after{border: 0; transition: all .2s ease-in-out; font: normal normal normal 24px/1 "Material Design Icons"; content: "\F142"; width: auto;height: auto; vertical-align: middle;line-height: .625rem; font-size: 1.25rem;margin-left: 0;}
-.dash-menu .card .rm-ext{transition: all .2s ease-in-out; margin-top:-12px;margin-right:-12px}
-.dash-menu .card:hover .rm-ext{display: block!important;}
-.dash-menu .card-description{max-height: 50px;overflow: hidden;}
+.dash-menu .card .mdi:before{ color: #1941DF; }
+.dash-menu .card svg{ width:32px;}
+.dash-menu .breadcrumb{ padding: 0;border: 0;margin:16px 0 24px 0; }
+.dash-menu .link{ display: block;text-decoration: none; }
+.dash-menu .link:after{ border: 0; transition: all .2s ease-in-out; font: normal normal normal 24px/1 "Material Design Icons"; content: "\F142"; width: auto;height: auto; vertical-align: middle;line-height: .625rem; font-size: 1.25rem;margin-left: 0; }
+.dash-menu .card .rm-ext{ transition: all .2s ease-in-out; margin-top:-12px;margin-right:-12px; }
+.dash-menu .card:hover .rm-ext{ display: block!important; }
+.dash-menu .card-description{ max-height: 50px;overflow: hidden; }
 /* .dash-menu .link:hover:after{margin-left: 4px;text-decoration: none;} */
 
 /* add extensions modal */
 .add-card{ transition: all .2s ease-in-out; border-radius: 4px;border: 5px #ccc dashed!important;cursor:pointer; }
-.add-card:hover{background: white; transform: scale(1.01);}
-.sclick{cursor:pointer;}
+.add-card:hover{ background: white; transform: scale(1.01); }
+.sclick{ cursor:pointer; }
+
+/* modal popup */
+.ext-preview{ max-width:100%;min-height:200px;}
+@media (max-width: 420px){
+
+    .ext-preview{ max-width:100%;min-height:100px;}
+}

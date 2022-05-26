@@ -90,3 +90,16 @@ footer {
 .sclick {
   cursor: pointer;
 }
+
+/* modal popup */
+.ext-preview {
+  max-width: 100%;
+  min-height: 200px;
+}
+
+@media (max-width: 420px) {
+  .ext-preview {
+    max-width: 100%;
+    min-height: 100px;
+  }
+}
