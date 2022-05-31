@@ -22,10 +22,17 @@ const _this = {
         // show loader during first load
         if (_this.state.firstLoad) showLoader();
 
+        // check for ott
+        let urlParams = new URLSearchParams(window.location.search);
+        let ott = urlParams.get('ott') ? urlParams.get('ott') : "";
+
         // do API query
         fetch('https://api-v1.kenzap.cloud/', {
             method: 'post',
-            headers: headers,
+            headers: {
+                ...headers, 
+                'Kenzap-Ott': ott
+            },
             body: JSON.stringify({
                 query: {
                     user: {

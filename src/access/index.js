@@ -1,5 +1,5 @@
 // js dependencies
-import { headers, showLoader, hideLoader, initHeader, initFooter, initBreadcrumbs, parseApiError, getCookie, onClick, getSiteId, link, toast } from '@kenzap/k-cloud';
+import { headers, showLoader, hideLoader, initHeader, initFooter, initBreadcrumbs, parseApiError, getCookie, onClick, spaceID, link, toast } from '@kenzap/k-cloud';
 import { HTMLContent } from "../_/_cnt_access.js"
 
 // where everything happens
@@ -20,7 +20,7 @@ const _this = {
 
         let params = new URLSearchParams();
         params.append("cmd", "get_site_users");
-        params.append("id", getSiteId());
+        params.append("id", spaceID());
         params.append("token", getCookie('kenzap_token'));
 
         // do API query
@@ -291,12 +291,7 @@ const _this = {
             let modalHTml = `
             <div class="form-cont">
                 <div class="form-group">
-                    <label for="uid" class="form-label">${ __('User ID') }</label>
-                    <input type="text" class="form-control" id="uid" autocomplete="off" placeholder="100000590923">
-                    <p class="form-text">${ __('User ID can be found under') } <b>${ __('My Account &gt; My Profile</b> section.') }</p>
-                </div>
-                <div class="form-group">
-                    <label for="ptitle" class="form-label">User Role</label>
+                    <label for="ptitle" class="form-label">User role</label>
                     <div class="form-check">
                         <label class="form-check-label">
                         <input type="radio" class="form-check-input" name="optionsRadios" id="radio_1" value="admin" checked="checked">
@@ -318,7 +313,7 @@ const _this = {
                         <i class="input-helper"></i></label>
                         <p class="form-text">${ __('Grants read permissions to data stored in this space.') }</p>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check d-none">
                         <label class="form-check-label" class="form-label">
                         <input type="radio" class="form-check-input" name="optionsRadios" id="radio_4" value="isolated">
                         ${ __('Isolated') }
@@ -326,11 +321,86 @@ const _this = {
                         <p class="form-text">${ __('Grants read, write permissions to data stored by this user. Provides no access to other data stored in this space.') }</p>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="ptitle" class="form-label">Method</label>
+                    <div class="form-check">
+                        <label class="form-check-label" class="form-label">
+                        <input type="radio" class="form-check-input" name="optionsRadiosShare" id="radio_share_1" value="uid" checked="true">
+                        ${ __('By link') }
+                        <i class="input-helper"></i></label>
+                        <p class="form-text">${ __('Provide one time sharing link to the user.') }</p>
+                        <div class="link-cont"> 
+                            <input id="link-sharing" type="text" class="form-control" id="uid" onClick="this.setSelectionRange(0, this.value.length)" autocomplete="off" placeholder="">
+                            <p class="form-text">${ __('Send this link to the user. Link valid for 5 days.') }</p>
+                        </div>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="optionsRadiosShare" id="radio_share_2" value="link" >
+                        ${ __('By user ID') }
+                        <i class="input-helper"></i></label>
+                        <p class="form-text">${ __('Enter user manually by providing his Kenzap user ID.') }</p>
+                        <div class="user-id-cont d-none"> 
+                            <input type="text" class="form-control" id="uid" autocomplete="off" placeholder="100000590923">
+                            <p class="form-text">${ __('User ID can be found under') } <b>${ __('My Account &gt; My Profile</b> section.') }</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             `;
 
             modal.querySelector(".modal-body").innerHTML = modalHTml;
 
+            modal.querySelector(".btn-primary").classList.add('d-none');
+
+            // radio_share_1
+            onClick('#radio_share_1', (e) => {
+
+                // e.preventDefault();
+
+                modal.querySelector(".link-cont").classList.remove('d-none');
+                modal.querySelector(".user-id-cont").classList.add('d-none');
+                modal.querySelector(".btn-primary").classList.add('d-none');
+            });
+
+            // radio_share_2
+            onClick('#radio_share_2', (e) => {
+
+                // e.preventDefault();
+
+                modal.querySelector(".link-cont").classList.add('d-none');
+                modal.querySelector(".user-id-cont").classList.remove('d-none');
+                modal.querySelector(".btn-primary").classList.remove('d-none');
+            });
+
+            // get available access token
+            fetch('https://api-v1.kenzap.cloud/', {
+                method: 'post',
+                headers: headers,
+                body: JSON.stringify({
+                    query: {
+                        token: {
+                            type:       'access-token',
+                        }
+                    }
+                })
+            })
+            .then(response => response.json())
+            .then(response => {
+
+                if (response.success){
+
+                    modal.querySelector("#link-sharing").value = 'https://dashboard.kenzap.cloud/?sid=' + spaceID()+'&ott=' + response.token.token;
+                    //modal.querySelector("#link-sharing").
+
+                }else{
+
+                    parseApiError(response);
+                }
+            })
+            .catch(error => { parseApiError(error); });
+
+            // add button listener
             _this.listeners.modalSuccessBtnFunc = (e) => {
 
                 e.preventDefault();
@@ -346,7 +416,7 @@ const _this = {
 
                 let params = new URLSearchParams();
                 params.append("cmd", "add_site_user");
-                params.append("id", getSiteId());
+                params.append("id", spaceID());
                 params.append("uid", uid);
                 params.append("role", role);
                 params.append("token", getCookie('kenzap_token'));
@@ -396,7 +466,7 @@ const _this = {
 
             let params = new URLSearchParams();
             params.append("cmd", "remove_site_user");
-            params.append("id", getSiteId());
+            params.append("id", spaceID());
             params.append("kid", kid);
             params.append("token", getCookie('kenzap_token'));
 
@@ -433,7 +503,7 @@ const _this = {
 
             let params = new URLSearchParams();
             params.append("cmd", "remove_cloud_api_key");
-            params.append("sid", getSiteId());
+            params.append("sid", spaceID());
             params.append("id", e.currentTarget.dataset.id);
             params.append("token", getCookie('kenzap_token'));
 
@@ -542,7 +612,7 @@ const _this = {
                 
                 let params = new URLSearchParams();
                 params.append("cmd", "add_cloud_api_key");
-                params.append("id", getSiteId());
+                params.append("id", spaceID());
                 params.append("type", type);
                 params.append("perm", perm);
                 params.append("iso", iso);
@@ -585,7 +655,7 @@ const _this = {
             let modal = document.querySelector(".modal");
             let modalCont = new bootstrap.Modal(modal);
             
-            modal.querySelector(".modal-title").innerHTML = __('Remove cloud space #' + getSiteId() + '?');
+            modal.querySelector(".modal-title").innerHTML = __('Remove cloud space #' + spaceID() + '?');
             modal.querySelector(".btn-primary").innerHTML = __('Confirm');
             modal.querySelector(".btn-primary").classList.add('btn-danger');
             modal.querySelector(".btn-secondary").innerHTML = __('Cancel');
@@ -612,7 +682,7 @@ const _this = {
                 
                 let params = new URLSearchParams();
                 params.append("cmd", "remove_cloud_space");
-                params.append("id", getSiteId());
+                params.append("id", spaceID());
                 params.append("token", getCookie('kenzap_token'));
     
                 // send data
@@ -688,7 +758,7 @@ const _this = {
                 
                 let params = new URLSearchParams();
                 params.append("cmd", "new_cloud_space");
-                params.append("id", getSiteId());
+                params.append("id", spaceID());
                 params.append("title", name);
                 params.append("desc", desc);
                 params.append("token", getCookie('kenzap_token'));
@@ -728,7 +798,7 @@ const _this = {
             let modal = document.querySelector(".modal");
             let modalCont = new bootstrap.Modal(modal);
             
-            modal.querySelector(".modal-title").innerHTML = __('Rename cloud space #' + getSiteId() + '?');
+            modal.querySelector(".modal-title").innerHTML = __('Rename cloud space #' + spaceID() + '?');
             modal.querySelector(".btn-primary").innerHTML = __('Rename');
             modal.querySelector(".btn-primary").classList.remove('btn-danger');
             modal.querySelector(".btn-secondary").innerHTML = __('Cancel');
@@ -758,7 +828,7 @@ const _this = {
                 
                 let params = new URLSearchParams();
                 params.append("cmd", "rename_cloud_space");
-                params.append("id", getSiteId());
+                params.append("id", spaceID());
                 params.append("title", name);
                 params.append("token", getCookie('kenzap_token'));
     
