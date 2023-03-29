@@ -1,3 +1,26 @@
+/**
+ * @name getAPI
+ * @description Returns API link
+ * @param {object} headers
+ */
+export const getAPI = () => {
+
+    return window.location.host.indexOf("localhost") == 0 ? "https://api-v1-dev.kenzap.cloud/" : "https://api-v1.kenzap.cloud/";
+}
+
+/**
+ * @name getParam
+ * @description Get URL param.
+ * 
+ * @returns {string} id - Kenzap Cloud space ID.
+ */
+export const getParam = (p) => {
+    
+    let urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(p) ? urlParams.get(p) : "";
+}
+
+
 export const link = (slug) => {
     
     let urlParams = new URLSearchParams(window.location.search);

@@ -52,17 +52,14 @@ footer {
   .navbar .navbar-menu-wrapper {
     width: calc(100% - 110px);
   }
-
   .navbar .navbar-brand-wrapper {
     width: 110px;
   }
-
   .dash-menu .card i.text-info {
     margin-right: 4px !important;
   }
-
   .card .card-description,
-.card .card-title {
+  .card .card-title {
     text-align: left;
   }
 }
@@ -70,7 +67,6 @@ footer {
   .content-wrapper {
     padding: 8px;
   }
-
   .navbar .navbar-brand-wrapper .brand-logo-mini img {
     padding-left: 8px;
     width: 50px;

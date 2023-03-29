@@ -1,5 +1,5 @@
 // js dependencies
-import { headers, showLoader, hideLoader, initHeader, initFooter, initBreadcrumbs, parseApiError, getCookie, onClick, spaceID, link, toast } from '@kenzap/k-cloud';
+import { H, showLoader, hideLoader, initHeader, initFooter, initBreadcrumbs, parseApiError, getCookie, onClick, spaceID, link, toast } from '@kenzap/k-cloud';
 import { HTMLContent } from "../_/_cnt_access.js"
 
 // where everything happens
@@ -59,7 +59,7 @@ const _this = {
         // do API query
         fetch('https://api-v1.kenzap.cloud/', {
             method: 'post',
-            headers: headers,
+            headers: H(),
             body: JSON.stringify({
                 query: {
                     user: {
@@ -126,7 +126,7 @@ const _this = {
         // initiate breadcrumbs
         initBreadcrumbs(
             [
-                { link: link('/'), text: __('Dashboard') },
+                { link: link('/'), text: __('Home') },
                 { text: __('Users & API key') },
             ]
         );
@@ -376,7 +376,7 @@ const _this = {
             // get available access token
             fetch('https://api-v1.kenzap.cloud/', {
                 method: 'post',
-                headers: headers,
+                headers: H(),
                 body: JSON.stringify({
                     query: {
                         token: {

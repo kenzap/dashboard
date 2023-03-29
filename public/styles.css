@@ -75,6 +75,7 @@ footer {
 
 .dash-menu .card-description {
   max-height: 50px;
+  height: 50px;
   overflow: hidden;
 }
 
