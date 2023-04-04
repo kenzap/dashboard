@@ -450,6 +450,8 @@ const _this = {
     },
     launcher: (extensions) => {
 
+        // console.log("Adding "+extensions);
+
         // init params
         let params = new URLSearchParams();
         params.append("cmd", "init_extensions");
@@ -458,7 +460,7 @@ const _this = {
         params.append("token", getCookie('kenzap_token'));
         
         // check if extension is not already installed
-        if(document.querySelector('[data-ext="'+extensions+'"]')) return;
+        if(document.querySelector('.anm[data-ext="'+extensions+'"]')) return;
         if(_this.state.modalCont) _this.state.modalCont.hide();
 
         // console.log(extensions);
