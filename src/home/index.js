@@ -11,8 +11,7 @@ const _this = {
         extLoad: false,
         ajaxQueue: 0,
         modalCont: null,
-        ext_ids: null,
-        
+        ext_ids: null, 
     },
     init: () => {
         
@@ -23,6 +22,41 @@ const _this = {
         // show loader during first load
         if (_this.state.firstLoad) showLoader();
  
+        let query = {
+            user: {
+                type:       'authenticate',
+                fields:     ['avatar'],
+                token:      getCookie('kenzap_token')
+            },
+            // locale: {
+            //     type:       'locale',
+            //     source:      ['extension'],
+            //     key:         'dashboard',
+            // },
+            // dashboard: {
+            //     type:       'dashboard',
+            // }
+        };
+
+        if(getParam('copy')){
+
+            query.copy = { 
+                type: 'copy', 
+                space: getParam('copy'),
+                force: _this.state.copy_force ? true : false
+            }
+        }
+
+        query.locale = {
+            type:       'locale',
+            source:      ['extension'],
+            key:         'dashboard',
+        };
+
+        query.dashboard = {
+            type:       'dashboard',
+        }
+
         // do API query
         fetch(getAPI(), {
             method: 'post',
@@ -31,21 +65,7 @@ const _this = {
                 'Kenzap-Ott': getParam('ott')
             },
             body: JSON.stringify({
-                query: {
-                    user: {
-                        type:       'authenticate',
-                        fields:     ['avatar'],
-                        token:      getCookie('kenzap_token')
-                    },
-                    locale: {
-                        type:       'locale',
-                        source:      ['extension'],
-                        key:         'dashboard',
-                    },
-                    dashboard: {
-                        type:       'dashboard',
-                    }
-                }
+                query: query
             })
         })
         .then(response => response.json())
@@ -54,7 +74,13 @@ const _this = {
             // hide UI loader
             hideLoader();
 
+            console.log(encodeURIComponent(window.location.href));
+            // https://dashboard.kenzap.cloud/home/?sid=1003343&copy=1003341
+            // location.href="https://auth.kenzap.com/?app=65432108792785&redirect="+encodeURI(window.location.href);
+
             if(response.success){
+                
+                _this.state.response = response;
 
                 // init header
                 initHeader(response);
@@ -482,7 +508,7 @@ const _this = {
 
                 _this.getData();
 
-                toast(__html('New extension successfully added.'));
+                // toast(__html('New extension successfully added.'));
             }else{
 
                 toast(__html('Can not add extension. Please try again later.'));
@@ -493,6 +519,41 @@ const _this = {
         });
     },
     checkLauncher: () => {
+
+        // demo content copy request can not be satisfied
+        if(_this.state.response.copy) if(_this.state.response.copy.status == 420){
+
+            let modal = document.querySelector(".modal");
+            _this.state.modalCont = new bootstrap.Modal(modal);
+            modal.querySelector(".modal-dialog").style.maxWidth = '600px';
+            modal.querySelector(".modal-title").innerHTML = __html('Confirm Installation');
+            modal.querySelector(".btn-secondary").innerHTML = __html('close');
+            modal.querySelector('.modal-footer').innerHTML = `
+                <button type="button" class="btn btn-danger btn-modal btn-reinstall">${ __html('Remove & Install') }</button>
+                <button type="button" class="btn btn-secondary btn-modal" data-bs-dismiss="modal">${ __html('Cancel') }</button>
+            `;
+            modal.querySelector(".modal-body").innerHTML = `
+    
+                <div class="form-cont ge-form">
+                    <img style="width:100%;max-height:240px;" class="mb-3" src="/assets/images/warning_red.svg">
+                    <p class="form-text-">${ __html('All data of this Cloud Space will be removed, are you sure you want to continue and install new demo content?') }</p> 
+                </div>
+            `;
+    
+    
+            onClick('.btn-reinstall', e => {
+    
+                if(_this.state.modalCont) _this.state.modalCont.hide();
+                showLoader();
+                _this.state.copy_force = true;
+                _this.getData()
+                //  window.location = 'https://kenzap.com/kenzap-cloud/';
+            });
+    
+            _this.state.modalCont.show();
+        }
+
+        if(_this.state.response.copy) if(_this.state.response.copy.status == 200) if(getParam('copy')) toast(__html('Installation successful'));
 
         if(_this.state.extLoad) return;
 

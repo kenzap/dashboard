@@ -41,7 +41,7 @@
         "rollup": "^2.44.0",
         "rollup-plugin-terser": "^7.0.2",
         "sass": "^1.32.8",
-        "serve": "^13.0.2"
+        "serve": "^14.2.0"
     },
     "devDependencies": {
         "@kenzap/k-cloud": "^1.0.4",
